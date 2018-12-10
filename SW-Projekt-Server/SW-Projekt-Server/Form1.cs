@@ -16,5 +16,10 @@ namespace SW_Projekt_Server
         {
             InitializeComponent();
         }
+        JanauschLIB Janausch = new JanauschLIB();
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Janausch.Listener(80);
+        }
     }
 }
