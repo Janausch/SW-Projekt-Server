@@ -16,10 +16,15 @@ namespace SW_Projekt_Server
         {
             InitializeComponent();
         }
-        JanauschLIB Janausch = new JanauschLIB();
+        //JanauschLIB Janausch = new JanauschLIB();
+        NetworkConnection nc = new NetworkConnection();
         private void button1_Click(object sender, EventArgs e)
         {
-            Janausch.Listener(80);
+            System.Threading.Thread.Sleep(1000);
+            string allIps = nc.ActiveIPs;
+
+            //MessageBox.Show("Sucess: "+allIps);
+         //   Janausch.Listener(80);
         }
     }
 }
