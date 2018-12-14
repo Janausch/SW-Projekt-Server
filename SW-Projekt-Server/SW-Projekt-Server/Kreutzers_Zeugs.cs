@@ -12,10 +12,10 @@ namespace SW_Projekt_Server
 {
     class Kreutzers_Zeugs
     {
-        public static void Main()
+        public void ConnectToDatabase()
         {
-            string IP = "";
-            string connString = "server=127.0.0.1;user=root;database=mir_pups_egal;port=3306;password=Martin123";
+            string IP = "127.0.0.1";//entweder 127.0.0.1 oder IP des SQL-Servers
+            string connString = "server="+IP+";user=root;database=mir_pups_egal;port=3306;password=Martin123";
             MySqlConnection conn = new MySqlConnection(connString);
             try
             {

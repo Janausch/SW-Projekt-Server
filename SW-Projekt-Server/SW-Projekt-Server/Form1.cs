@@ -16,15 +16,43 @@ namespace SW_Projekt_Server
         {
             InitializeComponent();
         }
-        //JanauschLIB Janausch = new JanauschLIB();
         NetworkConnection nc = new NetworkConnection();
+        string allIps = null;
+
         private void button1_Click(object sender, EventArgs e)
         {
-            System.Threading.Thread.Sleep(1000);
-            string allIps = nc.ActiveIPs;
+            GetIPs();
+            //string[] spittedString = nc.ActiveIPs.Split(new char[] { ';' });
+            //MessageBox.Show(spittedString.Length.ToString());
+        }
+        private async void GetIPs()
+        {
+            Task<string> GetIPs = nc.ServerPingStart(nc);
+            allIps = await GetIPs;
+        }
 
-            //MessageBox.Show("Sucess: "+allIps);
-         //   Janausch.Listener(80);
+        private void ListIPs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string Index = ListIPs.SelectedIndex.GetType().Name;
+            //Aufruf einer Methode zum Auslesen der Daten (als Liste?)
+            List<string> ListofData = new List<string>();
+            DataBox.Clear();
+            foreach (string s in ListofData)
+            {
+                //eventuell Farben einfügen (z.B. "<Error>Tracking lost" in Rot anzeigen "Tracking lost")
+                DataBox.Text += s + "\n";
+            }
+        }
+
+        private void Update_Button_Click(object sender, EventArgs e)
+        {
+            ListIPs.BeginUpdate();
+            string[] spittedString = nc.ActiveIPs.Split(new char[] { ';' });
+            foreach (string s in spittedString)
+            {
+                ListIPs.Items.Add(s);
+            }
+            ListIPs.EndUpdate();
         }
     }
 }
