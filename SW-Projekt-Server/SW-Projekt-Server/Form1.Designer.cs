@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.ListIPs = new System.Windows.Forms.ComboBox();
             this.DataBox = new System.Windows.Forms.RichTextBox();
             this.Update_Button = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // button1
@@ -73,6 +75,10 @@
             this.Update_Button.UseVisualStyleBackColor = true;
             this.Update_Button.Click += new System.EventHandler(this.Update_Button_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -95,6 +101,7 @@
         private System.Windows.Forms.ComboBox ListIPs;
         private System.Windows.Forms.RichTextBox DataBox;
         private System.Windows.Forms.Button Update_Button;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
