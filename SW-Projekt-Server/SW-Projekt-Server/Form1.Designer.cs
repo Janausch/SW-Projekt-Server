@@ -61,7 +61,7 @@
             this.DataBox.Location = new System.Drawing.Point(15, 98);
             this.DataBox.Name = "DataBox";
             this.DataBox.ReadOnly = true;
-            this.DataBox.Size = new System.Drawing.Size(121, 73);
+            this.DataBox.Size = new System.Drawing.Size(254, 170);
             this.DataBox.TabIndex = 2;
             this.DataBox.Text = "";
             // 

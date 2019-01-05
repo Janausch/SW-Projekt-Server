@@ -25,6 +25,32 @@ namespace SW_Projekt_Server
         NetworkConnection nc = new NetworkConnection();
         Stopwatch sw = new Stopwatch();
 
+        bool[,] Speicher = new bool[256, 300];
+        bool Speichervoll = false;
+        private void Speicherfüllen(List<string> IPs)
+        {
+            WeiterSchieben();
+            foreach (string s in IPs)
+            {
+                string[] Splitted = s.Split(new char[] { '.' });
+                string a = Splitted[3];
+                Speicher[Convert.ToByte(a), 0] = true;
+            }
+        }
+
+        private void WeiterSchieben()
+        {
+                for (int i = 0; i < 256; i++)
+                {
+                    for (int o = 299; o > 0; o--)
+                    {
+                        Speicher[i, o] = Speicher[i, o - 1];
+                    }
+                }
+                for (int i = 0; i < 256; i++)
+                    Speicher[i, 0] = false;
+        }
+
         private async void button1_Click(object sender, EventArgs e)
         {
             sw.Start();
@@ -51,6 +77,7 @@ namespace SW_Projekt_Server
                 ActiveIPs.Clear();
                 ActiveIPs = results.ToList();
                 ActiveIPs.RemoveAll(DeleteRules);
+                Speicherfüllen(ActiveIPs);
                 UpdateDropDownMenu();
                 sw.Stop();//Debugstuff start
                 Console.WriteLine(sw.ElapsedMilliseconds.ToString());
@@ -76,17 +103,44 @@ namespace SW_Projekt_Server
                 return string.Empty;
         }
 
+        private Color CheckOnline(byte IPTeil)
+        {
+            bool Green = true;
+            for (int I = 0; I < 300; I++)
+                if (!Speicher[IPTeil, I])
+                {
+                    Green = false;
+                    break;
+                }
+            if (Green)
+                return Color.Green;
+            for (int I = 0; I <= 300; I++)
+                if (Speicher[IPTeil, I])
+                    return Color.Orange;
+            return Color.Red;
+        }
+
         private void ListIPs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string Index = ListIPs.SelectedIndex.GetType().Name;
+            string[] IndexAll = ListIPs.SelectedItem.ToString().Split(new char[] { '.' });
+            string Index = IndexAll[3];
             //Aufruf einer Methode zum Auslesen der Daten (als Liste?)
-            List<string> ListofData = new List<string>();
-            DataBox.Clear();
-            foreach (string s in ListofData)
+            ListIPs.BackColor = CheckOnline(Convert.ToByte(Index));
+            int Zähler = 0;
+            string Folge = "Folgende Pings fehlen: ";
+            if (ListIPs.BackColor == Color.Orange)
             {
-                //eventuell Farben einfügen (z.B. "<Error>Tracking lost" in Rot anzeigen "Tracking lost")
-                DataBox.Text += s + "\n";
+                for (int i = 0; i < 300; i++)
+                    if (Speicher[Convert.ToByte(Index), i])
+                        Zähler++;
+                    else
+                        Folge += i.ToString() + ",";
             }
+            DataBox.Clear();
+            if (Zähler == 300)
+                DataBox.Text = Zähler.ToString() + "/300\n";
+            else
+                DataBox.Text = Zähler.ToString() + "/300\n" + Folge;
         }
         private void UpdateDropDownMenu()
         {
@@ -94,12 +148,12 @@ namespace SW_Projekt_Server
             ListIPs.Items.Clear();
             foreach (string s in ActiveIPs)
             {
-                ListIPs.Items.Add(s);
+                ListIPs.Items.Add(s);               
             }
             ListIPs.EndUpdate();
-        }
+        } 
 
-        private void Update_Button_Click(object sender, EventArgs e)
+        private void Update_Button_Click(object sender, EventArgs e) //Kommt noch weg
         {
             UpdateDropDownMenu();
         }
