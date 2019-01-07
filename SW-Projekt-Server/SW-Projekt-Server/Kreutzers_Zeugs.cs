@@ -31,7 +31,7 @@ namespace SW_Projekt_Server
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString()); //Fehlercode Ausgabe falls keine Verbindung hergestellt werden kann
+                MessageBox.Show("Datenbank-Verbindung nich möglich",ex.ToString()); //Fehlercode Ausgabe falls keine Verbindung hergestellt werden kann
             }
             conn.Close();
             //-------------------------------------------------------------------------------------------Test Ende
