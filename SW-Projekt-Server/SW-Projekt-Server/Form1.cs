@@ -26,7 +26,6 @@ namespace SW_Projekt_Server
         Stopwatch sw = new Stopwatch();
 
         bool[,] Speicher = new bool[256, 300];
-        bool Speichervoll = false;
         private void Speicherfüllen(List<string> IPs)
         {
             WeiterSchieben();
@@ -125,10 +124,10 @@ namespace SW_Projekt_Server
             string[] IndexAll = ListIPs.SelectedItem.ToString().Split(new char[] { '.' });
             string Index = IndexAll[3];
             //Aufruf einer Methode zum Auslesen der Daten (als Liste?)
-            ListIPs.BackColor = CheckOnline(Convert.ToByte(Index));
+            FarbPanel.BackColor = CheckOnline(Convert.ToByte(Index));
             int Zähler = 0;
             string Folge = "Folgende Pings fehlen: ";
-            if (ListIPs.BackColor == Color.Orange)
+            if (FarbPanel.BackColor == Color.Orange)
             {
                 for (int i = 0; i < 300; i++)
                     if (Speicher[Convert.ToByte(Index), i])

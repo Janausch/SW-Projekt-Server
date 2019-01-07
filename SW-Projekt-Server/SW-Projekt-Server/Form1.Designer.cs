@@ -34,6 +34,7 @@
             this.DataBox = new System.Windows.Forms.RichTextBox();
             this.Update_Button = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.FarbPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // button1
@@ -67,9 +68,9 @@
             // 
             // Update_Button
             // 
-            this.Update_Button.Location = new System.Drawing.Point(163, 52);
+            this.Update_Button.Location = new System.Drawing.Point(194, 52);
             this.Update_Button.Name = "Update_Button";
-            this.Update_Button.Size = new System.Drawing.Size(75, 23);
+            this.Update_Button.Size = new System.Drawing.Size(75, 24);
             this.Update_Button.TabIndex = 3;
             this.Update_Button.Text = "Update";
             this.Update_Button.UseVisualStyleBackColor = true;
@@ -79,11 +80,19 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // FarbPanel
+            // 
+            this.FarbPanel.Location = new System.Drawing.Point(143, 52);
+            this.FarbPanel.Name = "FarbPanel";
+            this.FarbPanel.Size = new System.Drawing.Size(22, 23);
+            this.FarbPanel.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(281, 280);
+            this.Controls.Add(this.FarbPanel);
             this.Controls.Add(this.Update_Button);
             this.Controls.Add(this.DataBox);
             this.Controls.Add(this.ListIPs);
@@ -102,6 +111,7 @@
         private System.Windows.Forms.RichTextBox DataBox;
         private System.Windows.Forms.Button Update_Button;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Panel FarbPanel;
     }
 }
 
