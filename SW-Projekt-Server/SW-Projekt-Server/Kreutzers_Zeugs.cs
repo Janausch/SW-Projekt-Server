@@ -34,20 +34,25 @@ namespace SW_Projekt_Server
                 MessageBox.Show(ex.ToString()); //Fehlercode Ausgabe falls keine Verbindung hergestellt werden kann
             }
             conn.Close();
-            MessageBox.Show("Done");
             //-------------------------------------------------------------------------------------------Test Ende
         }
-        public void DataFromDB()
+        public List<string> DataFromDB()
         {
+            List<string> returnvalue = new List<string>();
             //-------------------------------------------------------------------------------------------Auslesen
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                returnvalue.Add(rdr.GetInt32(0) + ":" + rdr.GetString(2) + ":" + rdr.GetMySqlDateTime(1) + "\n");
+            }
             conn.Close();
+            return returnvalue;
         }
         public void DataToDatabase(byte IPteil)
         {
             conn.Open();
-            string query2 = "INSERT INTO fehlfunktion (Art) VALUE (" + IPteil.ToString() + ":" + DateTime.Now + ")"; //Befehl für die Datenbank
+            string query2 = "INSERT INTO fehlfunktion (Art) VALUE (" + IPteil.ToString() + ")"; //Befehl für die Datenbank
             cmd = new MySqlCommand(query2, conn);
             //cmd.Parameters.AddWithValue("@errorcode", IPteil.ToString()); // Die IP adresse die wir vom Gregs weitergeben wollen
             cmd.ExecuteNonQuery();//Ausführen des Befehls

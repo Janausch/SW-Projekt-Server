@@ -215,7 +215,11 @@ namespace SW_Projekt_Server
 
         private void FehlerButton_Click(object sender, EventArgs e)
         {
-
+            DataBox.Clear();
+            foreach (string s in KZ.DataFromDB())
+            {
+                DataBox.Text += s + "\n";
+            }
         }
     }
 }
