@@ -24,7 +24,7 @@ namespace SW_Projekt_Server
         }
         NetworkConnection nc = new NetworkConnection();
         Stopwatch sw = new Stopwatch();
-
+        List<string> AllIPs = new List<string>();
         bool[,] Speicher = new bool[256, 300];
         private void Speicherfüllen(List<string> IPs)
         {
@@ -33,6 +33,9 @@ namespace SW_Projekt_Server
             {
                 string[] Splitted = s.Split(new char[] { '.' });
                 string a = Splitted[3];
+                if (!AllIPs.Contains(s))
+                    AllIPs.Add(s);
+                AllIPs.Sort();
                 Speicher[Convert.ToByte(a), 0] = true;
             }
         }
@@ -118,10 +121,22 @@ namespace SW_Projekt_Server
                     return Color.Orange;
             return Color.Red;
         }
-
+        private int Zwischenspeicher = 0;
         private void ListIPs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] IndexAll = ListIPs.SelectedItem.ToString().Split(new char[] { '.' });
+            string ListipsItem = null;
+            try
+            {
+                ListipsItem = ListIPs.SelectedItem.ToString();
+            }
+            catch (Exception){}
+
+            if (ListipsItem == null)
+                ListipsItem = AllIPs.ElementAt(Zwischenspeicher);
+            else
+                Zwischenspeicher = ListIPs.Items.IndexOf(ListipsItem);
+
+            string[] IndexAll = ListipsItem.Split(new char[] { '.' });
             string Index = IndexAll[3];
             //Aufruf einer Methode zum Auslesen der Daten (als Liste?)
             FarbPanel.BackColor = CheckOnline(Convert.ToByte(Index));
@@ -145,7 +160,7 @@ namespace SW_Projekt_Server
         {
             ListIPs.BeginUpdate();
             ListIPs.Items.Clear();
-            foreach (string s in ActiveIPs)
+            foreach (string s in AllIPs)
             {
                 ListIPs.Items.Add(s);               
             }
@@ -155,6 +170,7 @@ namespace SW_Projekt_Server
         private void Update_Button_Click(object sender, EventArgs e) //Kommt noch weg
         {
             UpdateDropDownMenu();
+            ListIPs_SelectedIndexChanged(null, null);
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
