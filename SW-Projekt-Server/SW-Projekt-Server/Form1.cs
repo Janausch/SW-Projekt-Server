@@ -25,6 +25,7 @@ namespace SW_Projekt_Server
         Stopwatch sw = new Stopwatch();
         List<string> AllIPs = new List<string>();
         bool[,] Speicher = new bool[256, 300];
+        
         private void Speicherfüllen(List<string> IPs)
         {
             WeiterSchieben();
@@ -181,5 +182,32 @@ namespace SW_Projekt_Server
         {
             button1_Click(null, null);
         }
+        #region Fehlerliste
+        List<string> Fehlerliste = new List<string>();
+
+        private void Fehlercheck (byte IPpart)
+        {
+            Color c = CheckOnline(IPpart);
+            if (c == Color.Red)
+            {
+                if (!isInErrorList(IPpart))
+                {
+                    Fehlerliste.Add(IPpart.ToString());
+                }
+            }
+            else if (c == Color.Green)
+                if (isInErrorList(IPpart))
+                    Fehlerliste.Remove(IPpart.ToString());
+        }
+        private bool isInErrorList(byte IPpart)
+        {
+            foreach (string s in Fehlerliste)
+                if (Fehlerliste.Contains(IPpart.ToString()))
+                    return true;
+            return false;
+        }
+
+
+        #endregion
     }
 }
