@@ -59,12 +59,18 @@ namespace SW_Projekt_Server
         }
         List<string> ActiveIPs = new List<string>();
 
+        public string getMyIP()
+        {
+            IPHostEntry hostInfo = Dns.GetHostByName(Dns.GetHostName());
+            return hostInfo.AddressList[0].ToString();
+        }
+
         private async Task GetIPs()
         {
             try
             {
 
-                string[] mainIP = nc.getMyIP().Split(new char[] { '.' }, Convert.ToInt32(4));
+                string[] mainIP = getMyIP().Split(new char[] { '.' }, Convert.ToInt32(4));
                 string MainIP = mainIP[0] + "." + mainIP[1] + "." + mainIP[2] + ".";
                 List<IPAddress> theListOfIPs = new List<IPAddress>();
 
