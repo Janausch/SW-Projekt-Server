@@ -21,7 +21,9 @@ namespace SW_Projekt_Server
             InitializeComponent();
             timer1.Interval = 1000;
             timer1.Start();
+            KZ.ConnectToDatabase();
         }
+        Kreutzers_Zeugs KZ = new Kreutzers_Zeugs();
         Stopwatch sw = new Stopwatch();
         List<string> AllIPs = new List<string>();
         bool[,] Speicher = new bool[256, 300];
@@ -193,6 +195,7 @@ namespace SW_Projekt_Server
                 if (!isInErrorList(IPpart))
                 {
                     Fehlerliste.Add(IPpart.ToString());
+                    KZ.DataToDatabase(IPpart);
                 }
             }
             else if (c == Color.Green)
@@ -209,5 +212,10 @@ namespace SW_Projekt_Server
 
 
         #endregion
+
+        private void FehlerButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -35,6 +35,7 @@
             this.Update_Button = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.FarbPanel = new System.Windows.Forms.Panel();
+            this.FehlerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -87,11 +88,22 @@
             this.FarbPanel.Size = new System.Drawing.Size(22, 23);
             this.FarbPanel.TabIndex = 4;
             // 
+            // FehlerButton
+            // 
+            this.FehlerButton.Location = new System.Drawing.Point(194, 14);
+            this.FehlerButton.Name = "FehlerButton";
+            this.FehlerButton.Size = new System.Drawing.Size(75, 24);
+            this.FehlerButton.TabIndex = 5;
+            this.FehlerButton.Text = "Fehler";
+            this.FehlerButton.UseVisualStyleBackColor = true;
+            this.FehlerButton.Click += new System.EventHandler(this.FehlerButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(281, 280);
+            this.Controls.Add(this.FehlerButton);
             this.Controls.Add(this.FarbPanel);
             this.Controls.Add(this.Update_Button);
             this.Controls.Add(this.DataBox);
@@ -112,6 +124,7 @@
         private System.Windows.Forms.Button Update_Button;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel FarbPanel;
+        private System.Windows.Forms.Button FehlerButton;
     }
 }
 
