@@ -22,7 +22,6 @@ namespace SW_Projekt_Server
             timer1.Interval = 1000;
             timer1.Start();
         }
-        NetworkConnection nc = new NetworkConnection();
         Stopwatch sw = new Stopwatch();
         List<string> AllIPs = new List<string>();
         bool[,] Speicher = new bool[256, 300];
