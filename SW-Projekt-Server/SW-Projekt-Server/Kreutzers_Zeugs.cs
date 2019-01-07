@@ -38,6 +38,9 @@ namespace SW_Projekt_Server
         }
         public List<string> DataFromDB()
         {
+
+            string query = "SELECT * FROM fehlfunktion";
+            MySqlCommand cmd = new MySqlCommand(query, conn);
             List<string> returnvalue = new List<string>();
             MySqlDataReader rdr;
             //-------------------------------------------------------------------------------------------Auslesen
@@ -60,8 +63,10 @@ namespace SW_Projekt_Server
             {
                 returnvalue.Add(rdr.GetInt32(0) + ":" + rdr.GetString(2) + ":" + rdr.GetMySqlDateTime(1) + "\n");
             }
+            rdr.Close();
             conn.Close();
             return returnvalue;
+            
         }
         public void DataToDatabase(byte IPteil)
         {
