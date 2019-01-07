@@ -42,6 +42,10 @@ namespace SW_Projekt_Server
             //-------------------------------------------------------------------------------------------Auslesen
             conn.Open();
             MySqlDataReader rdr = cmd.ExecuteReader();
+            while (rdr.Read())
+            {
+                Console.Write(rdr.GetString(0) + " " + rdr.GetString(1) + " " + rdr.GetInt32(2) + "\n");
+            }
             conn.Close();
         }
         public void DataToDatabase(byte IPteil)
