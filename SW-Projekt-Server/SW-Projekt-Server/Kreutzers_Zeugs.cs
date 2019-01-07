@@ -26,7 +26,7 @@ namespace SW_Projekt_Server
             //-------------------------------------------------------------------------------------------Test Anfang
             try
             {
-                MessageBox.Show("Connecting to the Database");
+                //MessageBox.Show("Connecting to the Database");
                 conn.Open();//Versuche die Verbindung zu öffnen
             }
             catch (Exception ex)
@@ -39,9 +39,23 @@ namespace SW_Projekt_Server
         public List<string> DataFromDB()
         {
             List<string> returnvalue = new List<string>();
+            MySqlDataReader rdr;
             //-------------------------------------------------------------------------------------------Auslesen
             conn.Open();
-            MySqlDataReader rdr = cmd.ExecuteReader();
+            try
+            {
+                rdr = cmd.ExecuteReader();
+            }
+            catch(NullReferenceException)
+            {
+                returnvalue.Add("Keine Fehler vorhanden");
+                return returnvalue;
+            }
+            //catch
+            //{
+            //    MessageBox.Show("Datenbankfehler!");
+            //}
+            
             while (rdr.Read())
             {
                 returnvalue.Add(rdr.GetInt32(0) + ":" + rdr.GetString(2) + ":" + rdr.GetMySqlDateTime(1) + "\n");
